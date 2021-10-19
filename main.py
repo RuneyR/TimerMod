@@ -1,15 +1,36 @@
-#Create TwitterArtist objects = to the number of returned followers the main account follows.
-#If needed, add them to the filter first.
-#
+import tweepy
+
+# Create TwitterArtist objects = to the number of returned followers the main account follows.
+# If needed, add them to the filter first.
+from TwitterArtist import TwitterArtist
+from Timer import Timer
+
+consumer_key = "1"
+consumer_secret = "2"
+access_key = "3"
+access_secret = "4"
+
+tweeter = None
+names_list = []
+twitter_obj = []
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def authorize():
+    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+    auth.set_access_token(access_key, access_secret)
+    global tweeter
+    tweeter = tweepy.API(auth)
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    authorize()
+    followers = tweeter.get_friends()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    # The names_list is populated with User ID of people the account is following. A list of ID's is formed.
+    for names in followers:
+        names_list.append(names.id)
+
+    # The twitter_obj is populate with TwitterArtist Objects, assigning unique users ID for every index in names_List
+    for users in names_list:
+        twitter_obj.extend([TwitterArtist(users, True, 0, Timer())])
