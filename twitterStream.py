@@ -1,8 +1,7 @@
 import tweepy
 import _thread
 import time
-import queue
-
+from Queue import Queue
 # https://www.geeksforgeeks.org/python-status-object-in-tweepy/
 # Auth tokens
 from urllib3.exceptions import ProtocolError
@@ -12,12 +11,14 @@ consumer_secret = "2"
 access_key = "3"
 access_secret = "4"
 
-statusQueue = queue.Queue(maxsize=0)
+q1 = None
 
 
-class twitterListener():
-    def __init__(self, userListID: list):
+class twitterListener:
+    def __init__(self, userListID: list, thread: Queue):
         self.userListID = userListID
+        global q1
+        q1 = thread
 
     def listen(self):
         print(self.userListID)
@@ -25,7 +26,6 @@ class twitterListener():
 
         while True:
             try:
-                print("trying")
                 stream.filter(follow=self.userListID)
 
             except (ProtocolError, AttributeError):
@@ -42,7 +42,7 @@ class twitterListener():
 # Override parent class.
 class MyStreamListener(tweepy.Stream):
     def on_status(self, status):
-        print(status)
+        q1.statusQueue.put(status)
         # statusQueue.put(status)
 
     def on_limit(self, track):
