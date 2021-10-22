@@ -16,6 +16,7 @@ class Timer:
         """Start a new timer by recording time at call."""
         if self.start_time is not None:
             raise TimerError(f"Timer is running. Use .stop() to stop it")
+            pass
         self.start_time = time.perf_counter()
 
     def elapsedTime(self):

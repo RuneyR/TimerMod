@@ -3,7 +3,8 @@ import threading
 import time
 import Checker
 
-from Timer import Timer
+from Timer import Timer, TimerError
+
 
 class Queue:
     def __init__(self, artist_dict: dict):
@@ -29,16 +30,23 @@ class Queue:
                     # This could be used to check if a new user was added. Have it rebuild if the status returns a
                     # new ID and the dictionary returns none, which says that a new follower was added?
                     if self.artist_dict.get(tid) is not None:
-                        print(current_status)
                         user_in_dict = self.artist_dict.get(tid)
                         can_post = Checker.check_their_mentions(user_in_dict.mentionsMade)
-                        print(can_post)
-                        print(user_in_dict.mentionsMade)
                         user_in_dict.mentionsMade += 1
                         if can_post:
                             print(current_status.id)
+                            try:
+                                user_in_dict.timer.start()
+                            except TimerError as a:
+                                user_in_dict.timer.elapsedTime()
+
+
+
                         else:
-                            print("Blocked" + current_status.id_str)
+                            user_in_dict.timer.elapsedTime()
+                            if Checker.elapsed_time_check(user_in_dict.timer.elapsed_Time):
+                                user_in_dict.mentionsMade = 1
+                                user_in_dict.timer.stop()
 
 
 
