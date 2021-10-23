@@ -1,15 +1,16 @@
+import Checker
 import queue
 import threading
 import time
-import Checker
-
-from Timer import Timer, TimerError
+import tweepy
+from Timer import TimerError
 
 
 class Queue:
-    def __init__(self, artist_dict: dict):
+    def __init__(self, artist_dict: dict, tweety: tweepy.API):
         self.artist_dict = artist_dict
         self.statusQueue = queue.Queue(maxsize=0)
+        self.tweety = tweety
 
     def beginThread(self):
         queueThread = threading.Thread(target=self.checkThenPost)
@@ -20,9 +21,10 @@ class Queue:
         current_status = None
         user_in_dict = None
         can_post = False
+        account_user = self.tweety.verify_credentials()
         while True:
             if self.statusQueue.qsize() == 0:
-                time.sleep(2)
+                time.sleep(5)
             else:
                 try:
                     current_status = self.statusQueue.get()
@@ -32,30 +34,32 @@ class Queue:
                     if self.artist_dict.get(tid) is not None:
                         user_in_dict = self.artist_dict.get(tid)
                         can_post = Checker.check_their_mentions(user_in_dict.mentionsMade)
-                        user_in_dict.mentionsMade += 1
-                        if can_post:
-                            print(current_status.id)
+                        # On True, simply post the mention as a RT. Start the timer. If the timer already started,
+                        # update elapsed time instead.
+                        if can_post and current_status.in_reply_to_user_id == account_user.id:
                             try:
+                                print(("Retweeted person below:"))
+                                print(current_status)
+                                user_in_dict.mentionsMade += 1
                                 user_in_dict.timer.start()
-                            except TimerError as a:
+                                self.tweety.retweet(current_status.id)
+
+                            except TimerError:
                                 user_in_dict.timer.elapsedTime()
-
-
-
+                        # On False, check elapsed time.  If they mention and passed the cooldown period, rt their
+                        # post. Stops then starts the timer for the new tweet.
                         else:
-                            user_in_dict.timer.elapsedTime()
+                            if user_in_dict.timer.start_time is not None:
+                                user_in_dict.timer.elapsedTime()
                             if Checker.elapsed_time_check(user_in_dict.timer.elapsed_Time):
                                 user_in_dict.mentionsMade = 1
                                 user_in_dict.timer.stop()
-
-
+                                user_in_dict.timer.start()
 
                 except ConnectionError:
-
                     continue
                 except Exception as e:
                     print(e.with_traceback())
                     time.sleep(10)
                     continue
-
                 is_RT = False

@@ -1,6 +1,9 @@
+import tweepy
+import Timer
+
+
 class TwitterArtist:
-    def __init__(self, TwitterID: int, canRT: bool, mentionsMade: int, timer: object):
-        self.TwitterID = TwitterID
-        self.canRT = canRT
+    def __init__(self, twitterID: int, mentionsMade: int, timer: Timer.Timer):
+        self.TwitterID = twitterID
         self.mentionsMade = mentionsMade
         self.timer = timer

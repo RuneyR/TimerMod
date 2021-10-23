@@ -6,6 +6,7 @@ from twitterStream import twitterListener
 from TwitterArtist import TwitterArtist
 from Timer import Timer
 from Queue import Queue
+from TweepyAPI import TweepyAPI
 
 consumer_key = "1"
 consumer_secret = "2"
@@ -19,10 +20,9 @@ twitter_dict = {}
 
 
 def authorize():
-    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-    auth.set_access_token(access_key, access_secret)
+    callAPI = TweepyAPI(consumer_key, consumer_secret, access_key, access_secret)
     global tweeter
-    tweeter = tweepy.API(auth)
+    tweeter = callAPI.authorize()
 
 
 def populateListAndDictionary():
@@ -34,7 +34,7 @@ def populateListAndDictionary():
 
     # The twitter_obj is populate with TwitterArtist Objects, assigning unique users ID for every index in names_List
     for users in names_list:
-        twitter_obj.extend([TwitterArtist(users, True, 0, Timer())])
+        twitter_obj.extend([TwitterArtist(users, 0, Timer())])
 
     for artist in twitter_obj:
         twitter_dict[artist.TwitterID] = artist
@@ -43,8 +43,7 @@ def populateListAndDictionary():
 if __name__ == '__main__':
     authorize()
     populateListAndDictionary()
-    myQeu = Queue(twitter_dict)
+    myQeu = Queue(twitter_dict, tweeter)
     myQeu.beginThread()
-    startLis = twitterListener(names_list,myQeu)
+    startLis = twitterListener(names_list, myQeu)
     startLis.listen()
-
