@@ -1,13 +1,11 @@
 import os
-
-# Program script will create 2 files. One for consumer key and secret. The other for creating generated tokens.
-# Program will also read from Consumer file for OAUTH.
 import sys
 
 FILE_TO_ACCESS = 'Keys.txt'
 TEXT_TO_WRITE = "Replace this line with consumer key!\nReplace this line with consumer secret!\nReplace this line " \
                 "with access key!\nReplace this line with consumer secret!"
 global fileEmpty
+
 
 # If the file exists, do nothing. If it doesn't catch the error resulting from no file found and create it.
 def check_key_file():
