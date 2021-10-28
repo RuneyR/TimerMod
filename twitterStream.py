@@ -3,23 +3,22 @@ import time
 from Queue import Queue
 from urllib3.exceptions import ProtocolError
 
-# Auth tokens
-consumer_key = "1"
-consumer_secret = "2"
-access_key = "3"
-access_secret = "4"
 Que_Thread = None
 
 
-class twitterListener:
-    def __init__(self, userListID: list, thread: Queue):
+class twitterStream:
+    def __init__(self, userListID: list, thread: Queue, cons_key: str, cons_sec: str, access_key: str, access_sec: str):
         self.userListID = userListID
+        self.cK = cons_key
+        self.cS = cons_sec
+        self.aK = access_key
+        self.aS = access_sec
         global Que_Thread
         Que_Thread = thread
 
     def listen(self):
         print(self.userListID)
-        stream = MyStreamListener(consumer_key, consumer_secret, access_key, access_secret)
+        stream = MyStreamListener(self.cK, self.cS, self.aK, self.aS)
 
         while True:
             try:
