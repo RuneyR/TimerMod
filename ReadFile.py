@@ -7,7 +7,7 @@ TEXT_TO_WRITE = "Replace this line with consumer key!\nReplace this line with co
 global fileEmpty
 
 
-# If the file exists, do nothing. If it doesn't catch the error resulting from no file found and create it.
+# If the file exists, do nothing. If it doesn't catch the error resulting from no file found and create it!
 def check_key_file():
     global fileEmpty
     try:
