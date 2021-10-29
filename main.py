@@ -8,6 +8,7 @@ from TwitterArtist import TwitterArtist
 from Timer import Timer
 from Queue import Queue
 from TweepyAPI import TweepyAPI
+from TwitterFriendThread import TwitterFriendQueue
 
 consumer_key = "1"
 consumer_secret = "2"
@@ -58,4 +59,6 @@ if __name__ == '__main__':
     myQeu = Queue(twitter_dict, tweeter)
     myQeu.beginThread()
     startLis = twitterStream(names_list, myQeu, consumer_key, consumer_secret, access_key, access_secret)
+    friendThread = TwitterFriendQueue(tweeter)
+    friendThread.begin_thread()
     startLis.listen()

@@ -18,5 +18,5 @@ class TweepyAPI:
     def authorize(self):
         auth = tweepy.OAuthHandler(self.CK, self.CS)
         auth.set_access_token(self.AK, self.AS)
-        tweeter = tweepy.API(auth)
+        tweeter = tweepy.API(auth, wait_on_rate_limit=True)
         return tweeter
