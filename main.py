@@ -2,7 +2,8 @@ import tweepy
 
 # Create TwitterArtist objects = to the number of returned followers the main account follows.
 # If needed, add them to the filter first.
-from twitterStream import twitterListener
+import ReadFile
+from twitterStream import twitterStream
 from TwitterArtist import TwitterArtist
 from Timer import Timer
 from Queue import Queue
@@ -17,6 +18,16 @@ tweeter = None
 names_list = []
 twitter_obj = []
 twitter_dict = {}
+
+
+def assign_keys():
+    global consumer_key, consumer_secret, access_key, access_secret
+    ReadFile.check_key_file()
+    our_keys = ReadFile.get_keys()
+    consumer_key = our_keys[0]
+    consumer_secret = our_keys[1]
+    access_key = our_keys[2]
+    access_secret = our_keys[3]
 
 
 def authorize():
@@ -41,9 +52,10 @@ def populateListAndDictionary():
 
 
 if __name__ == '__main__':
+    assign_keys()
     authorize()
     populateListAndDictionary()
     myQeu = Queue(twitter_dict, tweeter)
     myQeu.beginThread()
-    startLis = twitterListener(names_list, myQeu)
+    startLis = twitterStream(names_list, myQeu, consumer_key, consumer_secret, access_key, access_secret)
     startLis.listen()
