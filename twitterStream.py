@@ -13,16 +13,21 @@ class twitterStream:
         self.cS = cons_sec
         self.aK = access_key
         self.aS = access_sec
+        self.stream = None
         global Que_Thread
         Que_Thread = thread
 
+    def get_User_List(self):
+        return self.userListID
+
     def listen(self):
         print(self.userListID)
-        stream = MyStreamListener(self.cK, self.cS, self.aK, self.aS)
+        self.stream = MyStreamListener(self.cK, self.cS, self.aK, self.aS)
 
         while True:
             try:
-                stream.filter(follow=self.userListID)
+                print(self.userListID)
+                self.stream.filter(follow=self.userListID)
 
             except (ProtocolError, AttributeError):
                 print(time.ctime() + ": Lib probably crashed, restarting now")
@@ -50,3 +55,7 @@ class MyStreamListener(tweepy.Stream):
     def on_error(self, status_code):
         print("Error occurred from tweeter!")
         print(status_code)
+
+    def on_disconnect(self):
+        print("Reconstructing list, hope it works.")
+        return True

@@ -56,9 +56,11 @@ if __name__ == '__main__':
     assign_keys()
     authorize()
     populateListAndDictionary()
+    # Queue/Thread responsible for shifting through twitter status. Also posts on account's behalf.
     myQeu = Queue(twitter_dict, tweeter)
     myQeu.beginThread()
-    startLis = twitterStream(names_list, myQeu, consumer_key, consumer_secret, access_key, access_secret)
-    friendThread = TwitterFriendQueue(tweeter)
+    twStream = twitterStream(names_list, myQeu, consumer_key, consumer_secret, access_key, access_secret)
+    # Thread responsible for keeping follower list realtime.
+    friendThread = TwitterFriendQueue(tweeter, twStream)
     friendThread.begin_thread()
-    startLis.listen()
+    twStream.listen()
