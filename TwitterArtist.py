@@ -7,3 +7,8 @@ class TwitterArtist:
         self.TwitterID = twitterID
         self.mentionsMade = mentionsMade
         self.timer = timer
+
+    def Print(self):
+        print("Twitter ID: " + str(self.TwitterID))
+        print("mentionsMade: " + str(self.mentionsMade))
+        print("timer: " + str(self.timer))

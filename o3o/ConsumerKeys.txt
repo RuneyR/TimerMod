@@ -1,0 +1,3 @@
+Please write Consumer key and Consumer Token, in order and on separate lines, no spaces, below. This file should only be 3 lines long.
+uIMZFEqWEnxuFrCrAM5UNLdrv
+vmVfdEfZ906guLjMS83Ajz1A7BcKVqPge23xQOUW61ZBZT12hJ

@@ -41,4 +41,4 @@ class TwitterFriendQueue:
                 self.cList.userListID = names_id_list
                 self.cList.stream.disconnect()
 
-            time.sleep(10)
+            time.sleep(30)

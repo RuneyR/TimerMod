@@ -24,9 +24,11 @@ class Queue:
         account_user = self.tweety.verify_credentials()
         while True:
             if self.statusQueue.qsize() == 0:
+                print(("checkThenPost: StatusQueue is empty"))
                 time.sleep(5)
             else:
                 try:
+                    print(("checkThenPost: StatusQueue has" + str(self.statusQueue.qsize()) + "elements" ))
                     current_status = self.statusQueue.get()
                     tid = current_status.user.id
                     # This could be used to check if a new user was added. Have it rebuild if the status returns a
@@ -34,6 +36,10 @@ class Queue:
                     if self.artist_dict.get(tid) is not None:
                         user_in_dict = self.artist_dict.get(tid)
                         can_post = Checker.check_their_mentions(user_in_dict.mentionsMade)
+                        print(("checkThenPost: User with " + str(tid) + " ID exists"))
+                        user_in_dict.Print()
+                        print("Can post: " + str(can_post))
+                        print("current_status.in_reply_to_user_id: " + str(current_status.in_reply_to_user_id))
                         # On True, simply post the mention as a RT. Start the timer. If the timer already started,
                         # update elapsed time instead.
                         if can_post and current_status.in_reply_to_user_id == account_user.id:
