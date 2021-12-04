@@ -28,7 +28,7 @@ class Queue:
                 time.sleep(5)
             else:
                 try:
-                    print(("checkThenPost: StatusQueue has" + str(self.statusQueue.qsize()) + "elements" ))
+                    print(("checkThenPost: StatusQueue has" + str(self.statusQueue.qsize()) + " element(s)" ))
                     current_status = self.statusQueue.get()
                     tid = current_status.user.id
                     # This could be used to check if a new user was added. Have it rebuild if the status returns a

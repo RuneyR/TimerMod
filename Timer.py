@@ -28,3 +28,8 @@ class Timer:
         if self.start_time is None:
             raise TimerError(f"Timer is not running. Use .start() to start it")
         self.start_time = None
+    
+    def Print(self):
+        """print the start time and elapsed time"""
+        print("Start time: " + str(self.start_time))
+        print("Elapsed time: " + str(self.elapsed_Time))
