@@ -1,12 +1,8 @@
 # Check if the account mentioning will be RT by main account.
 # Only check if they can post whenever the Listener receives a mention. Do not constantly check for it.
 
-import Parameters
+from Parameters import MENTION_LIMIT, COOL_DOWN_TIME
 
-MENTION_LIMIT = 3
-# Cool down is 3 days
-# COOL_DOWN_TIME = 259200.0
-COOL_DOWN_TIME = 180.0
 
 
 def check_their_mentions(count):

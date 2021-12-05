@@ -56,8 +56,10 @@ class Queue:
                         # post. Stops then starts the timer for the new tweet.
                         else:
                             if user_in_dict.timer.start_time is not None:
+                                print(("RUNEY WRITE WHAT HAPPENS HERE:"))
                                 user_in_dict.timer.elapsedTime()
                             if Checker.elapsed_time_check(user_in_dict.timer.elapsed_Time):
+                                print(("RUNEY WRITE WHAT HAPPENS HERE:"))
                                 user_in_dict.mentionsMade = 1
                                 user_in_dict.timer.stop()
                                 user_in_dict.timer.start()
