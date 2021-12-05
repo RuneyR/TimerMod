@@ -1,3 +1,5 @@
+import sys
+
 import tweepy
 import time
 import threading
@@ -32,14 +34,17 @@ class TwitterFriendQueue:
 
             # Check the newest follow from twitter, compare it with the current working list. If theres a change,
             # change variables. If there is none, go to sleep to avoid rate limit.
-            if current_working_id_list[0] == names_id_list[0]:
-                print("No change detected.")
+            try:
+                if current_working_id_list[0] == names_id_list[0]:
+                    print("No change detected.")
 
-            else:
-                print("Change detected.")
-                print(current_twitter_users[0].screen_name)
-                self.cList.userListID = names_id_list
-                self.cList.stream.disconnect()
+                else:
+                    print("Change detected.")
+                    print(current_twitter_users[0].screen_name)
+                    self.cList.userListID = names_id_list
+                    self.cList.stream.disconnect()
+            except IndexError:
+                sys.exit("No followers found. Please follow someone....")
 
             # 60 seconds * 60 minutes * 24 hours = seconds in a day
             Sleeptime = (60 * 60 * 24) / MAX_TWITTER_CALLS_A_DAY

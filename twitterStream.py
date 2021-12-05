@@ -1,7 +1,10 @@
 import tweepy
 import time
+
+import Parameters
 from Queue import Queue
 from urllib3.exceptions import ProtocolError
+from Parameters import LISTEN_TAGS
 
 Que_Thread = None
 
@@ -27,7 +30,7 @@ class twitterStream:
         while True:
             try:
                 print(self.userListID)
-                self.stream.filter(follow=self.userListID)
+                self.stream.filter(follow=self.userListID, track=LISTEN_TAGS)
 
             except (ProtocolError, AttributeError):
                 print(time.ctime() + ": Lib probably crashed, restarting now")
