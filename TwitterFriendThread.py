@@ -3,7 +3,7 @@ import time
 import threading
 from twitterStream import twitterStream
 
-SLEEP_TIME = 300
+from Parameters import MAX_TWITTER_CALLS_A_DAY
 
 
 class TwitterFriendQueue:
@@ -41,4 +41,7 @@ class TwitterFriendQueue:
                 self.cList.userListID = names_id_list
                 self.cList.stream.disconnect()
 
-            time.sleep(30)
+            # 60 seconds * 60 minutes * 24 hours = seconds in a day
+            Sleeptime = (60 * 60 * 24) / MAX_TWITTER_CALLS_A_DAY
+            print(Sleeptime)
+            time.sleep(Sleeptime)

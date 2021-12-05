@@ -1,4 +1,5 @@
 import tweepy
+import Parameters
 
 # Create TwitterArtist objects = to the number of returned followers the main account follows.
 # If needed, add them to the filter first.
@@ -10,10 +11,7 @@ from Queue import Queue
 from TweepyAPI import TweepyAPI
 from TwitterFriendThread import TwitterFriendQueue
 
-consumer_key = "1"
-consumer_secret = "2"
-access_key = "3"
-access_secret = "4"
+
 
 tweeter = None
 names_list = []
