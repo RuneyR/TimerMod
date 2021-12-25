@@ -9,6 +9,6 @@ class TwitterArtist:
         self.timer = timer
 
     def Print(self):
-        print("Twitter ID: " + str(self.TwitterID))
-        print("mentionsMade: " + str(self.mentionsMade))
+        print("TwitterArtist: Twitter ID: " + str(self.TwitterID))
+        print("TwitterArtist: mentionsMade: " + str(self.mentionsMade))
         self.timer.Print()

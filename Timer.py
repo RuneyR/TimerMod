@@ -31,5 +31,5 @@ class Timer:
     
     def Print(self):
         """print the start time and elapsed time"""
-        print("Start time: " + str(self.start_time))
-        print("Elapsed time: " + str(self.elapsed_Time))
+        print("Timer: Start time: " + str(self.start_time))
+        print("Timer: Elapsed time: " + str(self.elapsed_Time))
