@@ -38,12 +38,13 @@ class Queue:
                                     
                     # This could be used to check if a new user was added. Have it rebuild if the status returns a
                     # new ID and the dictionary returns none, which says that a new follower was added?
-                    if self.artist_dict.get(tid) is not None:
+                    if self.artist_dict.get(tid) is not None and tid is not account_user.id :
                         user_in_dict = self.artist_dict.get(tid)
                         can_post = Checker.check_their_mentions(user_in_dict.mentionsMade)
                         
                         if user_in_dict.timer.start_time != None:
                             print("checkThenPost: Checking if Delay has been met")
+                            user_in_dict.timer.elapsedTime()
                             can_post = can_post and Checker.elapsed_time_check_delay(user_in_dict.timer.elapsed_Time)
                         
                         # console
@@ -60,14 +61,16 @@ class Queue:
                                 print("checkThenPost: Retweeted tweet by: " + current_status.user.screen_name)
                                 print("checkThenPost: Text: '" + current_status.text + "'")
                                 
+                                self.tweety.retweet(current_status.id)
+                              
                                 user_in_dict.mentionsMade += 1
                                 print("checkThenPost: Mentions made: " + str(user_in_dict.mentionsMade))
-                                
                                 user_in_dict.timer.start()
-                                self.tweety.retweet(current_status.id)
+
 
                             except TimerError:
                                 user_in_dict.timer.elapsedTime()
+                                print("Runey error")
                         # On False, check elapsed time.  If they mention and passed the cooldown period, rt their
                         # post. Stops then starts the timer for the new tweet.
                         else:

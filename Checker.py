@@ -32,5 +32,5 @@ def elapsed_time_check_delay(elapsed_time: float):
         return True
     else:
         difference = RETWEET_DELAY - elapsed_time
-        print("Timer: Not enough time has passed, " + str( math.floor(difference / hour)) + " hours and " + str( math.floor(difference % hour / minute)) + " minutes left." )
+        print("Timer: Not enough time has passed, " + str( math.floor(difference / hour)) + " hours and " + str( math.floor(difference % hour / minute)) + " minutes left. raw: " + str(difference) )
         return False

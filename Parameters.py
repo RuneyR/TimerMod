@@ -12,7 +12,7 @@ MENTION_LIMIT = 3
 COOL_DOWN_TIME = 300
 
 # Delay per retweet to user
-RETWEET_DELAY = 120
+RETWEET_DELAY = 1
 
 # List of hashtags to listen for
 LISTEN_TAGS = ["#InflatedEgos", "#Inflatedegos", "#inflatedegos", "#inflatedEgos", "#IE", "IEgos"]
