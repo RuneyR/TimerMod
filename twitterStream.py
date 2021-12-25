@@ -30,7 +30,7 @@ class twitterStream:
         while True:
             try:
                 print(self.userListID)
-                self.stream.filter(follow=self.userListID, track=LISTEN_TAGS)
+                self.stream.filter(track=LISTEN_TAGS)
 
             except (ProtocolError, AttributeError):
                 print(time.ctime() + ": Lib probably crashed, restarting now")
