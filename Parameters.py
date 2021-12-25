@@ -9,10 +9,10 @@ MENTION_LIMIT = 3
 # How long is the cooldown before the bot resets mention count of a user 
 # Cool down is 3 days
 # COOL_DOWN_TIME = 259200.0
-COOL_DOWN_TIME = 300
+COOL_DOWN_TIME = 259200
 
 # Delay per retweet to user
-RETWEET_DELAY = 1
+RETWEET_DELAY = 600
 
 # List of hashtags to listen for
 LISTEN_TAGS = ["#InflatedEgos", "#Inflatedegos", "#inflatedegos", "#inflatedEgos", "#IE", "#IEgos"]
