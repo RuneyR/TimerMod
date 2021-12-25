@@ -15,4 +15,4 @@ COOL_DOWN_TIME = 300
 RETWEET_DELAY = 1
 
 # List of hashtags to listen for
-LISTEN_TAGS = ["#InflatedEgos", "#Inflatedegos", "#inflatedegos", "#inflatedEgos", "#IE", "IEgos"]
+LISTEN_TAGS = ["#InflatedEgos", "#Inflatedegos", "#inflatedegos", "#inflatedEgos", "#IE", "#IEgos"]
